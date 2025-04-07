@@ -28,10 +28,6 @@ class LogoMaticModel extends ChangeNotifier {
   img.Image? _cachedSourceImage;
   img.Image? _cachedLogoImage;
   bool _isPreviewProcessing = false;
-  
-  // Default source selection preferences
-  bool _useGalleryForImages = false;
-  bool _useGalleryForLogo = false;
 
   // Getters
   List<File>? get sourceImages => _sourceImages;
@@ -40,20 +36,6 @@ class LogoMaticModel extends ChangeNotifier {
   LogoPosition get logoPosition => _logoPosition;
   bool get isProcessing => _isProcessing;
   bool get isPreviewProcessing => _isPreviewProcessing;
-  bool get useGalleryForImages => _useGalleryForImages;
-  bool get useGalleryForLogo => _useGalleryForLogo;
-
-  // Toggle default source for images
-  void toggleUseGalleryForImages() {
-    _useGalleryForImages = !_useGalleryForImages;
-    notifyListeners();
-  }
-
-  // Toggle default source for logo
-  void toggleUseGalleryForLogo() {
-    _useGalleryForLogo = !_useGalleryForLogo;
-    notifyListeners();
-  }
 
   // Sets the source images and clears processed images
   void setSourceImages(List<File> images) {

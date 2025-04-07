@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:logo_matic/models/logo_matic_model.dart';
 
 class FileUtils {
   static final _imagePicker = ImagePicker();
@@ -12,12 +10,13 @@ class FileUtils {
   /// Picks multiple image files with enhanced error handling and logging
   static Future<List<File>?> pickImages(BuildContext context) async {
     try {
-      final model = Provider.of<LogoMaticModel>(context, listen: false);
-      final useGallery = model.useGalleryForImages;
+      // Show image source selection dialog
+      final ImageSource? source = await _showImageSourceDialog(context);
+      if (source == null) return null;
       
       List<File> files = [];
       
-      if (useGallery) {
+      if (source == ImageSource.gallery) {
         // Use gallery picker
         final images = await _imagePicker.pickMultiImage();
         
@@ -87,12 +86,13 @@ class FileUtils {
   /// Picks a single logo image file with enhanced error handling and logging
   static Future<File?> pickLogo(BuildContext context) async {
     try {
-      final model = Provider.of<LogoMaticModel>(context, listen: false);
-      final useGallery = model.useGalleryForLogo;
+      // Show image source selection dialog
+      final ImageSource? source = await _showImageSourceDialog(context);
+      if (source == null) return null;
       
       File? logoFile;
       
-      if (useGallery) {
+      if (source == ImageSource.gallery) {
         // Use gallery picker
         final image = await _imagePicker.pickImage(source: ImageSource.gallery);
         
@@ -154,5 +154,28 @@ class FileUtils {
       }
       return null;
     }
+  }
+  
+  /// Shows a dialog to choose between gallery and file picker
+  static Future<ImageSource?> _showImageSourceDialog(BuildContext context) async {
+    return showDialog<ImageSource>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select Source'),
+          content: const Text('Choose where to select your image from'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, ImageSource.gallery),
+              child: const Text('Gallery'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('File Picker'),
+            ),
+          ],
+        );
+      }
+    );
   }
 } 

@@ -212,33 +212,6 @@ class _LogoSelectionCardState extends State<LogoSelectionCard> with SingleTicker
                   ),
                 ],
               ),
-              
-              // Default source checkbox
-              Row(
-                children: [
-                  Checkbox(
-                    value: model.useGalleryForLogo,
-                    onChanged: (value) {
-                      if (value != null) {
-                        model.toggleUseGalleryForLogo();
-                      }
-                    },
-                    visualDensity: VisualDensity.compact,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  const Text(
-                    'Use gallery as default source',
-                    style: TextStyle(fontSize: 13),
-                  ),
-                  const Tooltip(
-                    message: 'When checked, the app will directly open the gallery instead of the file picker',
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 4.0),
-                      child: Icon(Icons.info_outline, size: 16, color: Colors.grey),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ],
         ),

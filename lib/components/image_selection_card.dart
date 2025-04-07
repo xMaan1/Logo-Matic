@@ -214,33 +214,6 @@ class _ImageSelectionCardState extends State<ImageSelectionCard> with SingleTick
                     ),
                   ],
                 ),
-                
-                // Default source checkbox
-                Row(
-                  children: [
-                    Checkbox(
-                      value: model.useGalleryForImages,
-                      onChanged: (value) {
-                        if (value != null) {
-                          model.toggleUseGalleryForImages();
-                        }
-                      },
-                      visualDensity: VisualDensity.compact,
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                    const Text(
-                      'Use gallery as default source',
-                      style: TextStyle(fontSize: 13),
-                    ),
-                    const Tooltip(
-                      message: 'When checked, the app will directly open the gallery instead of the file picker',
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 4.0),
-                        child: Icon(Icons.info_outline, size: 16, color: Colors.grey),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ],
           ),

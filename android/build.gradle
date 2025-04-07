@@ -3,6 +3,27 @@ allprojects {
         google()
         mavenCentral()
     }
+    
+    // Force all dependencies to use the same Kotlin version
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlin') {
+                details.useVersion '1.7.10'
+            }
+        }
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.8.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 rootProject.buildDir = "../build"
